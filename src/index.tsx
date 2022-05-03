@@ -1,16 +1,33 @@
-import React from "react";
+import React, { createContext } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
+import "firebase/compat/auth";
+import "./utils/firebase";
+
+export const Context: any = createContext(null);
+
+const auth = firebase.auth();
+const firestore = firebase.firestore();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <BrowserRouter>
-    <App />
+    <Context.Provider
+      value={{
+        firebase,
+        auth,
+        firestore,
+      }}
+    >
+      <App />
+    </Context.Provider>
   </BrowserRouter>
 );
 

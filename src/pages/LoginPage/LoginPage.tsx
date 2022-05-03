@@ -1,12 +1,14 @@
 import React, { FC, useState } from "react";
-import { Field, Formik } from "formik";
-import * as Yup from "yup";
-import s from "./LoginPage.module.scss";
+import { Field, Form, Formik } from "formik";
 import { UserLoginT } from "../../Types/CredentialTypes";
 import { debounce } from "../../utils/debounce";
+import { UserAuth, UserLoginFunctionT } from "../../services/User-service";
+import * as Yup from "yup";
+import s from "./LoginPage.module.scss";
 
 const Schema = Yup.object({
-  login: Yup.string()
+  email: Yup.string()
+    .email()
     .min(6, "To short login...")
     .required("Need to fill the field*"),
   password: Yup.string()
@@ -15,20 +17,31 @@ const Schema = Yup.object({
 });
 
 export const LoginPage: FC = (): JSX.Element => {
-  const [login, setLogin] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [isRegistrationChosen, setIsRegistrationChosen] =
+    useState<boolean>(false);
+  const userAuthInstance = new UserAuth();
 
   const initialValues: UserLoginT = {
-    login,
+    email,
     password,
   };
 
   const setUserLogin = (e: any): void => {
-    setLogin(e.target.value);
+    setEmail(e.target.value);
   };
 
   const setUserPassword = (e: any): void => {
     setPassword(e.target.value);
+  };
+
+  const onSubmit: UserLoginFunctionT = isRegistrationChosen
+    ? userAuthInstance.registration(email, password)
+    : userAuthInstance.login(email, password);
+
+  const setAuthButton = (choice: boolean) => (): void => {
+    setIsRegistrationChosen(choice);
   };
 
   return (
@@ -36,19 +49,19 @@ export const LoginPage: FC = (): JSX.Element => {
       <Formik
         initialValues={initialValues}
         validationSchema={Schema}
-        onSubmit={() => console.log("success")}
+        onSubmit={onSubmit}
         validateOnChange
         enableReinitialize
       >
         {(props: any) => {
           const { errors } = props;
           return (
-            <div className={s.content}>
+            <Form className={s.content}>
               <div>
-                <span>Login:</span>
+                <span>Email:</span>
                 <Field
-                  type="text"
-                  name="login"
+                  type="email"
+                  name="email"
                   onChange={(e: any) => debounce(setUserLogin(e))}
                 />
                 <p>{errors.login}</p>
@@ -62,8 +75,20 @@ export const LoginPage: FC = (): JSX.Element => {
                 />
                 <p>{errors.password}</p>
               </div>
-              <button type="submit">Login</button>
-            </div>
+              <div className={s.submit_button}>
+                {isRegistrationChosen ? (
+                  <>
+                    <button type="submit">Registration</button>
+                    <span onClick={setAuthButton(false)}>Login</span>
+                  </>
+                ) : (
+                  <>
+                    <button type="submit">Login</button>
+                    <span onClick={setAuthButton(true)}>Registration</span>
+                  </>
+                )}
+              </div>
+            </Form>
           );
         }}
       </Formik>
