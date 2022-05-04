@@ -4,7 +4,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { privateUrls, publicUrls } from "../constants/routerUrls";
 import { isUserRegistered } from "../store/selectors/UserSelectors";
 import { RoutesT } from "../Types/RoutesTypes";
-import { PrivateRoutes, PublicRoutes } from "./RoutesList";
+import { SignedUserRoutes, PublicRoutes } from "./RoutesList";
 
 export const PagesRouter: FC = (): JSX.Element => {
   const user: boolean = useSelector(isUserRegistered);
@@ -13,11 +13,15 @@ export const PagesRouter: FC = (): JSX.Element => {
     <Routes>
       {user ? (
         <>
-          {PrivateRoutes.map(({ url, Component }: RoutesT, index: number) => {
-            return (
-              <Route path={url} element={Component} key={`${index}_${url}`} />
-            );
-          })}
+          {SignedUserRoutes.map(
+            ({ url, Component }: RoutesT, index: number) => {
+              console.log("url", url);
+
+              return (
+                <Route path={url} element={Component} key={`${index}_${url}`} />
+              );
+            }
+          )}
           <Route
             path="*"
             element={<Navigate to={privateUrls.admin} replace />}

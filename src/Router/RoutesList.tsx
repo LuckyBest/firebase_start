@@ -10,9 +10,10 @@ export const PublicRoutes: Array<RoutesT> = [
   },
 ];
 
-export const PrivateRoutes: Array<RoutesT> = [
+export const SignedUserRoutes: Array<RoutesT> = [
   {
     url: privateUrls.admin,
     Component: <AdminPage />,
   },
+  ...PublicRoutes,
 ];
