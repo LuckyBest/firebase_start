@@ -3,12 +3,13 @@ import { Field, Form, Formik } from "formik";
 import { UserLoginT } from "../../Types/CredentialTypes";
 import { debounce } from "../../utils/debounce";
 import { UserAuth, UserLoginFunctionT } from "../../services/User-service";
+import { LoginFormError } from "../../components/ErrorsComponents/LoginFormError/LoginFormError";
 import * as Yup from "yup";
 import s from "./LoginPage.module.scss";
 
 const Schema = Yup.object({
   email: Yup.string()
-    .email()
+    .email("Email is invalid")
     .min(6, "To short login...")
     .required("Need to fill the field*"),
   password: Yup.string()
@@ -46,6 +47,7 @@ export const LoginPage: FC = (): JSX.Element => {
 
   return (
     <div className={s.container}>
+      <LoginFormError />
       <Formik
         initialValues={initialValues}
         validationSchema={Schema}
@@ -60,17 +62,19 @@ export const LoginPage: FC = (): JSX.Element => {
               <div>
                 <span>Email:</span>
                 <Field
-                  type="email"
+                  type="text"
                   name="email"
+                  value={email}
                   onChange={(e: any) => debounce(setUserLogin(e))}
                 />
-                <p>{errors.login}</p>
+                <p>{errors.email}</p>
               </div>
               <div>
                 <span>Password:</span>
                 <Field
                   type="password"
                   name="password"
+                  value={password}
                   onChange={(e: any) => debounce(setUserPassword(e))}
                 />
                 <p>{errors.password}</p>
