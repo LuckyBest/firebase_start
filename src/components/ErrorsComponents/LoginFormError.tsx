@@ -1,19 +1,24 @@
 import React, { FC, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { getErrorsData } from "../../../store/selectors/ErrorMessagesSelectors";
+import { useDispatch, useSelector } from "react-redux";
+import { setFormAuthError } from "../../store/actions/errorMessagesActions";
+import { getErrorsData } from "../../store/selectors/ErrorMessagesSelectors";
 import s from "./LoginFormError.module.scss";
 
 export const LoginFormError: FC = (): JSX.Element => {
   const error: string = useSelector(getErrorsData).loginFormError;
   const [isError, setIsError] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!!error) setIsError(true);
-  }, []);
+    setIsError(!!error);
+    setTimeout(() => {
+      dispatch(setFormAuthError(""));
+    }, 5000);
+  }, [error]);
 
   let containerClass: string = `${s.container}`;
 
-  if (isError) containerClass += ` ${s.hide}`;
+  if (isError) containerClass += ` ${s.show_up}`;
 
   return (
     <div className={containerClass}>

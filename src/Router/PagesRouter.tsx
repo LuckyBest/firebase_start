@@ -15,8 +15,6 @@ export const PagesRouter: FC = (): JSX.Element => {
         <>
           {SignedUserRoutes.map(
             ({ url, Component }: RoutesT, index: number) => {
-              console.log("url", url);
-
               return (
                 <Route path={url} element={Component} key={`${index}_${url}`} />
               );

@@ -3,7 +3,6 @@ import { Field, Form, Formik } from "formik";
 import { UserLoginT } from "../../Types/CredentialTypes";
 import { debounce } from "../../utils/debounce";
 import { UserAuth, UserLoginFunctionT } from "../../services/User-service";
-import { LoginFormError } from "../../components/ErrorsComponents/LoginFormError/LoginFormError";
 import * as Yup from "yup";
 import s from "./LoginPage.module.scss";
 
@@ -47,7 +46,6 @@ export const LoginPage: FC = (): JSX.Element => {
 
   return (
     <div className={s.container}>
-      <LoginFormError />
       <Formik
         initialValues={initialValues}
         validationSchema={Schema}
