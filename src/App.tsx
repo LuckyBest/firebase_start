@@ -1,7 +1,7 @@
 import React from "react";
 import { PagesRouter } from "./Router/PagesRouter";
 import "./App.css";
-import { LoginFormError } from "./components/ErrorsComponents/LoginFormError";
+import { ErrorComponent } from "./components/ErrorsComponents/ErrorComponent";
 
 export const App = (): JSX.Element => {
   const styles: Record<string, string> = {
@@ -14,7 +14,7 @@ export const App = (): JSX.Element => {
 
   return (
     <div style={styles}>
-      <LoginFormError />
+      <ErrorComponent />
       <PagesRouter />
     </div>
   );

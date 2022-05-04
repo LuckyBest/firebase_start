@@ -15,11 +15,15 @@ export class UserAuth {
   private navigation = useNavigate();
   private dispatch = useDispatch();
 
-  public login(login: string, password: string): UserLoginFunctionT {
+  private userDataHandler(
+    login: string,
+    password: string,
+    firebaseAPI_callback: any
+  ): UserLoginFunctionT {
     return (): void => {
       const auth = getAuth();
-      signInWithEmailAndPassword(auth, login, password)
-        .then((userCredential) => {
+      firebaseAPI_callback(auth, login, password)
+        .then((userCredential: any) => {
           const { email }: { email: string | null } = userCredential.user;
 
           if (!!email) {
@@ -27,29 +31,22 @@ export class UserAuth {
             this.navigation(privateUrls.admin);
           }
         })
-        .catch((error) => {
+        .catch((error: any) => {
           const errorMessage: string = error.message;
           this.dispatch(setFormAuthError(errorMessage));
         });
     };
   }
 
-  public registration(login: string, password: string): UserLoginFunctionT {
-    return (): void => {
-      const auth = getAuth();
-      createUserWithEmailAndPassword(auth, login, password)
-        .then((userCredential) => {
-          const { email }: { email: string | null } = userCredential.user;
+  public login(login: string, password: string): UserLoginFunctionT {
+    return this.userDataHandler(login, password, signInWithEmailAndPassword);
+  }
 
-          if (!!email) {
-            this.dispatch(setUserData(email));
-            this.navigation(privateUrls.admin);
-          }
-        })
-        .catch((error) => {
-          const errorMessage: string = error.message;
-          this.dispatch(setFormAuthError(errorMessage));
-        });
-    };
+  public registration(login: string, password: string): UserLoginFunctionT {
+    return this.userDataHandler(
+      login,
+      password,
+      createUserWithEmailAndPassword
+    );
   }
 }
