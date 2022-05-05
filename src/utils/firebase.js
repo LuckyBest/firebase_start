@@ -1,4 +1,5 @@
 import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
 
 firebase.initializeApp({
   apiKey: process.env.REACT_APP_API_KEY,
@@ -9,3 +10,5 @@ firebase.initializeApp({
   appId: process.env.REACT_APP_APP_ID,
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 });
+
+export { firebase };
