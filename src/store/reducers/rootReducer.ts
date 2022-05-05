@@ -1,3 +1,4 @@
+import { UsersPageStateT } from "./UsersPageReducer";
 import {
   ErrorMessagesReducer,
   ErrorMessagesReducerT,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
 export type StoreT = {
   UserReducer: UserInitialStateT;
   ErrorMessagesReducer: ErrorMessagesReducerT;
+  UsersPageReducer: UsersPageStateT;
 };
 
 export const store = createStore(

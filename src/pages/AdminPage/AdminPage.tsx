@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { Params, useParams } from "react-router-dom";
+import { AdminPagesHeader } from "../../components/AdminPagesHeader/AdminPagesHeader";
 import { NavBar } from "../../components/NavBar/NavBar";
 import { AnalyticsPage } from "../AnalyticsPage/AnalyticsPage";
 import { UsersPage } from "../UsersPage/UsersPage";
@@ -19,7 +20,12 @@ export const AdminPage: FC = (): JSX.Element => {
     <div className={s.container}>
       <NavBar />
       <div className={s.container_content}>
-        {!!page_id && AdminInnerPages[page_id]}
+        {!!page_id && (
+          <>
+            <AdminPagesHeader title={page_id} />
+            {AdminInnerPages[page_id]}
+          </>
+        )}
       </div>
     </div>
   );
