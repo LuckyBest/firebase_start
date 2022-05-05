@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Link } from "react-router-dom";
+import { Link, Params, useParams } from "react-router-dom";
 import s from "./NavBarItem.module.scss";
 
 export type NavBarItemT = {
@@ -8,9 +8,14 @@ export type NavBarItemT = {
 };
 
 export const NavBarItem: FC<NavBarItemT> = ({ path, title }): JSX.Element => {
+  const { page_id }: Readonly<Params<string>> = useParams();
+
+  let containerClass: string = `${s.container}`;
+
+  if (page_id === title) containerClass += ` ${s.active}`;
   return (
     <Link to={path}>
-      <div className={s.container}>
+      <div className={containerClass}>
         <span>{title}</span>
       </div>
     </Link>
