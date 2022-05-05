@@ -9,4 +9,4 @@ export type privateUrlsList = "admin";
 
 export type publicUrlsT = Record<publicUrlsList, string>;
 
-export type privateUrlsT = Record<privateUrlsList, string>;
+export type privateUrlsT = Record<privateUrlsList | publicUrlsList, string>;

@@ -6,4 +6,5 @@ export const publicUrls: publicUrlsT = {
 
 export const privateUrls: privateUrlsT = {
   admin: "/admin",
+  ...publicUrls,
 };

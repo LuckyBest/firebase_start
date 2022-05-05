@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { Field, Form, Formik } from "formik";
 import { UserLoginT } from "../../Types/CredentialTypes";
 import { debounce } from "../../utils/debounce";
-import { UserAuth, UserLoginFunctionT } from "../../services/User-service";
+import { UserAuth, UserLoginFunctionT } from "../../services/UserAuth-service";
 import * as Yup from "yup";
 import s from "./LoginPage.module.scss";
 
