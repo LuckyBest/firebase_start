@@ -28,7 +28,7 @@ export class UserAuth {
 
           if (!!email) {
             this.dispatch(setUserData(email));
-            this.navigation(privateUrls.admin);
+            this.navigation(privateUrls.analytics);
           }
         })
         .catch((error: any) => {

@@ -5,7 +5,11 @@ export type RoutesT = {
 
 export type publicUrlsList = "login";
 
-export type privateUrlsList = "admin";
+export type adminInnerUrlsList = "analytics" | "users";
+
+export type privateUrlsList = "admin" | adminInnerUrlsList;
+
+export type adminInnerUrlsT = Record<adminInnerUrlsList, string>;
 
 export type publicUrlsT = Record<publicUrlsList, string>;
 
