@@ -2,14 +2,14 @@ import React, { FC } from "react";
 import { Params, useParams } from "react-router-dom";
 import { AdminPagesHeader } from "../../components/AdminPagesHeader/AdminPagesHeader";
 import { NavBar } from "../../components/NavBar/NavBar";
-import { AnalyticsPage } from "../AnalyticsPage/AnalyticsPage";
+import { TodoListPage } from "../TodoListPage/TodoListPage";
 import { UsersPage } from "../UsersPage/UsersPage";
 import s from "./AdminPage.module.scss";
 
 export type AdminInnerPagesT = Record<string, JSX.Element>;
 
 const AdminInnerPages: AdminInnerPagesT = {
-  analytics: <AnalyticsPage />,
+  todo_list: <TodoListPage />,
   users: <UsersPage />,
 };
 
