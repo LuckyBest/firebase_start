@@ -6,7 +6,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { privateUrls } from "../constants/routerUrls";
-import { setFormAuthError } from "../store/actions/errorMessagesActions";
+import { setError } from "../store/actions/errorMessagesActions";
 import { setUserData } from "../store/actions/userActions";
 
 export type UserLoginFunctionT = () => void;
@@ -28,12 +28,12 @@ export class UserAuth {
 
           if (!!email) {
             this.dispatch(setUserData(email));
-            this.navigation(privateUrls.analytics);
+            this.navigation(privateUrls.todo_list);
           }
         })
         .catch((error: any) => {
           const errorMessage: string = error.message;
-          this.dispatch(setFormAuthError(errorMessage));
+          this.dispatch(setError(errorMessage));
         });
     };
   }

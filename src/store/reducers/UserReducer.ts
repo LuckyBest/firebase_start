@@ -16,7 +16,7 @@ export type UserInitialStateT = {
 export const UserReducer = (
   state: UserInitialStateT = initialState,
   action: ReducerActionT
-) => {
+): UserInitialStateT => {
   switch (action.type) {
     case USER_ACTION_TYPES.SET_USER_DATA: {
       return {

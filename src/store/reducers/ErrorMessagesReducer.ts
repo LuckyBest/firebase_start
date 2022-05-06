@@ -2,22 +2,22 @@ import { ERROR_MESSAGES_ACTION_TYPES } from "../actionTypes/ErrorMessagesActionT
 import { ReducerActionT } from "./../../Types/ReducersTypes";
 
 const initialState: ErrorMessagesReducerT = {
-  loginFormError: "",
+  Error: "",
 };
 
 export type ErrorMessagesReducerT = {
-  loginFormError: string;
+  Error: string;
 };
 
 export const ErrorMessagesReducer = (
   state: ErrorMessagesReducerT = initialState,
   action: ReducerActionT
-) => {
+): ErrorMessagesReducerT => {
   switch (action.type) {
     case ERROR_MESSAGES_ACTION_TYPES.SET_FORM_AUTH_ERROR: {
       return {
         ...state,
-        loginFormError: action.payload,
+        Error: action.payload,
       };
     }
     default: {

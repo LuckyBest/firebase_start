@@ -5,7 +5,7 @@ export type RoutesT = {
 
 export type publicUrlsList = "login";
 
-export type adminInnerUrlsList = "analytics" | "users";
+export type adminInnerUrlsList = "todo_list" | "users";
 
 export type privateUrlsList = "admin" | adminInnerUrlsList;
 

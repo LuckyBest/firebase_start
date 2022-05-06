@@ -12,7 +12,7 @@ export type UsersPageStateT = {
 export const UsersPageReducer = (
   state: UsersPageStateT = initialState,
   action: ReducerActionT
-) => {
+): UsersPageStateT => {
   switch (action.type) {
     case USERS_PAGE_ACTION_TYPES.SET_USERS_LIST: {
       return {

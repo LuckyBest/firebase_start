@@ -9,7 +9,7 @@ export const publicUrls: publicUrlsT = {
 };
 
 export const AdminInnerPagesUrls: adminInnerUrlsT = {
-  analytics: "/admin/analytics",
+  todo_list: "/admin/todo_list",
   users: "/admin/users",
 };
 
