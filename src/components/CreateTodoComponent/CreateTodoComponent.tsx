@@ -22,8 +22,10 @@ export const CreateTodoComponent: FC<CreateTodoComponentT> = ({
   };
 
   const addTodo = (): void => {
+    const eventDate: number = Date.now();
+
     if (!!text) {
-      TodoListServiceInstance.addTodo(text);
+      TodoListServiceInstance.addTodo(text, eventDate);
       setText("");
       if (!!textareaRef.current) textareaRef.current.value = "";
       scrollToBottom();
