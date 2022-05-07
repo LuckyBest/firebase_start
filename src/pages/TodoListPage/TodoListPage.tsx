@@ -27,11 +27,17 @@ export const TodoListPage: FC = (): JSX.Element => {
   );
 
   const setTodoCompletion = useCallback(
-    (id: string, text: string, isCompleted: boolean, event_date: number) =>
+    (
+        id: string,
+        text: string,
+        isCompleted: boolean,
+        event_date: number,
+        setIsTodoCompleted: any
+      ) =>
       (): void => {
+        setIsTodoCompleted((prevState: boolean): boolean => !prevState);
         console.log("isCompleted", isCompleted);
         console.log("text", text);
-
         TodoListInstance.setTodoCompletion(id, text, isCompleted, event_date);
       },
     []

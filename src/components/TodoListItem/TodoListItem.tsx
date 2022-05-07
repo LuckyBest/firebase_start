@@ -12,7 +12,8 @@ export type TodoListItemT = {
     id: string,
     text: string,
     isCompleted: boolean,
-    event_date: number
+    event_date: number,
+    setIsTodoCompleted: any
   ) => () => void;
 };
 
@@ -27,9 +28,9 @@ export const TodoListItem: FC<TodoListItemT> = ({ ...props }): JSX.Element => {
   //   setTodoCompletion(id, text, isTodoCompleted, event_date);
   // }, [isCompleted]);
 
-  const setCompletion = (): void => {
-    setIsTodoCompleted((prevState: boolean): boolean => !prevState);
-  };
+  // const setCompletion = (): void => {
+  //   setIsTodoCompleted((prevState: boolean): boolean => !prevState);
+  // };
 
   return (
     <div className={s.container}>
@@ -38,7 +39,13 @@ export const TodoListItem: FC<TodoListItemT> = ({ ...props }): JSX.Element => {
           type="checkbox"
           id={s.checked}
           defaultChecked={isTodoCompleted}
-          onClick={setCompletion}
+          onClick={setTodoCompletion(
+            id,
+            text,
+            isTodoCompleted,
+            event_date,
+            setIsTodoCompleted
+          )}
         />
         <label htmlFor={s.checked} />
       </div>

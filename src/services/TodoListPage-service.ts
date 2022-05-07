@@ -1,5 +1,14 @@
 import { useDispatch } from "react-redux";
-import { collection, addDoc, doc, deleteDoc, setDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  doc,
+  deleteDoc,
+  setDoc,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import { setError } from "../store/actions/errorMessagesActions";
 import { setTodos } from "../store/actions/todoListPageActions";
 import { TodoListT } from "../store/reducers/TodoListPageReducer";
@@ -24,6 +33,7 @@ export class TodoListService {
         todoList = [];
       } else {
         this.dispatch(setError("There is not any todos..."));
+        this.dispatch(setTodos(todoList));
       }
     });
   }
@@ -48,15 +58,16 @@ export class TodoListService {
     firebase.database().ref().off();
   }
 
-  public closeFirebaseConnection(): void {
-    firebase.database().ref().off();
-    if (!!this.firebaseDB) this.firebaseDB();
-  }
-
   public async deleteTodo(id: string) {
-    console.log("id", id);
+    const collectionRef = collection(firestoreDb, "todos");
+    const queryData = query(collectionRef, where("id", "==", id));
+    const snapShot = await getDocs(queryData);
+    const results = snapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 
-    await deleteDoc(doc(firebaseDatabase, "todos", id));
+    results.forEach(async (result) => {
+      const resultRef = doc(firestoreDb, "todos", result.id);
+      await deleteDoc(resultRef);
+    });
   }
 
   public async setTodoCompletion(
@@ -68,5 +79,10 @@ export class TodoListService {
     const documentRef = doc(firestoreDb, "todos", id);
     const payload: TodoListT = { id, text, isCompleted, event_date };
     setDoc(documentRef, payload);
+  }
+
+  public closeFirebaseConnection(): void {
+    firebase.database().ref().off();
+    if (!!this.firebaseDB) this.firebaseDB();
   }
 }
