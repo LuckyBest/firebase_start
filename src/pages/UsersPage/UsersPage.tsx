@@ -1,5 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
-import { firebase } from "../../utils/firebase";
+import React, { FC } from "react";
 import { UserListItem } from "../../components/UserListItem/UserListItem";
 import s from "./UsersPage.module.scss";
 

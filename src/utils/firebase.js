@@ -1,4 +1,5 @@
 import firebase from "firebase/compat/app";
+import { getFirestore } from "firebase/firestore";
 import "firebase/compat/firestore";
 
 firebase.initializeApp({
@@ -11,4 +12,4 @@ firebase.initializeApp({
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 });
 
-export { firebase };
+export { firebase, getFirestore };

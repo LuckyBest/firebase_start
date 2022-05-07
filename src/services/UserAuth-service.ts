@@ -28,7 +28,6 @@ export class UserAuth {
 
           if (!!email) {
             this.dispatch(setUserData(email));
-            localStorage.setItem("userEmail", email);
             this.navigation(privateUrls.todo_list);
           }
         })

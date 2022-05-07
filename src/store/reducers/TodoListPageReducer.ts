@@ -15,6 +15,7 @@ export type TodoListT = {
   id: string;
   text: string;
   isCompleted: boolean;
+  event_date: number;
 };
 
 export const TodoListPageReducer = (
@@ -26,18 +27,6 @@ export const TodoListPageReducer = (
       return {
         ...state,
         Todos: action.payload,
-      };
-    }
-    case TODO_LIST_PAGE_ACTION_TYPES.ADD_TODO: {
-      const TodoListCopied: Array<TodoListT> = JSON.parse(
-        JSON.stringify(state.Todos)
-      );
-
-      TodoListCopied.push(action.payload);
-
-      return {
-        ...state,
-        Todos: TodoListCopied,
       };
     }
     default: {
