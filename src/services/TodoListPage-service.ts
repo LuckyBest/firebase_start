@@ -3,17 +3,18 @@ import { collection, addDoc, getFirestore } from "firebase/firestore";
 import { setError } from "../store/actions/errorMessagesActions";
 import { setTodos } from "../store/actions/todoListPageActions";
 import { TodoListT } from "../store/reducers/TodoListPageReducer";
-import { firebase } from "../utils/firebase";
+import { firebase, firebaseDatabase } from "../utils/firebase";
 import { uuid } from "../utils/uuid";
 
 export class TodoListService {
   private dispatch = useDispatch();
-  private db = firebase.firestore().collection("todos").orderBy("event_date");
+  private db = firebaseDatabase.collection("todos").orderBy("event_date");
+  private firestoreDB: any = null;
 
   public loadTodoList(): void {
     let todoList: Array<TodoListT | any> = [];
 
-    this.db.onSnapshot((collection) => {
+    this.firestoreDB = this.db.onSnapshot((collection) => {
       collection.forEach((document) => {
         todoList.push(document.data());
       });
@@ -47,10 +48,11 @@ export class TodoListService {
     } catch (e: any) {
       this.dispatch(setError(e?.message));
     }
+    firebase.database().ref().off();
   }
 
   public closeFirebaseConnection(): void {
-    const db = firebase.database().ref().child("todos");
-    db.off();
+    firebase.database().ref().off();
+    if (!!this.firestoreDB) this.firestoreDB();
   }
 }

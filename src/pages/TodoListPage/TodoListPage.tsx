@@ -18,14 +18,13 @@ export const TodoListPage: FC = (): JSX.Element => {
   const scrollToBottom = (): void => {
     bottomDivRef.current.scrollIntoView({ behavior: "smooth" });
   };
-  console.log("todos", todos);
 
   useEffect(() => {
     TodoListInstance.loadTodoList();
 
-    // return () => {
-    //   TodoListInstance.closeFirebaseConnection();
-    // };
+    return () => {
+      TodoListInstance.closeFirebaseConnection();
+    };
   }, []);
 
   return (
