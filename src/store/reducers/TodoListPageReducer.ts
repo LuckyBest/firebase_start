@@ -29,6 +29,14 @@ export const TodoListPageReducer = (
         Todos: action.payload,
       };
     }
+    case TODO_LIST_PAGE_ACTION_TYPES.SET_LOADER_ACTIVITY: {
+      const loaderActivity: boolean = action.payload;
+
+      return {
+        ...state,
+        isLoading: loaderActivity,
+      };
+    }
     default: {
       return {
         ...state,

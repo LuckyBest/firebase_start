@@ -5,6 +5,7 @@ import {
   TodoListItem,
   TodoListItemT,
 } from "../../components/TodoListItem/TodoListItem";
+import { TodoLoader } from "../../components/TodoLoader/TodoLoader";
 import { TodoListService } from "../../services/TodoListPage-service";
 import { TodoListT } from "../../store/reducers/TodoListPageReducer";
 import { getTodoListData } from "../../store/selectors/TodoListSelectors";
@@ -51,25 +52,38 @@ export const TodoListPage: FC = (): JSX.Element => {
     };
   }, []);
 
+  const AmptyList: JSX.Element = (
+    <div className={s.container_empty}>
+      <span>The list is empty...</span>
+      <TodoLoader/>
+    </div>
+  );
+
   return (
     <div className={s.container}>
       <div className={s.container_content}>
         <div className={s.todos}>
-          {todos?.map(
-            (
-              { id, text, isCompleted, event_date }: TodoListT,
-              index: number
-            ): JSX.Element => {
-              const props: TodoListItemT = {
-                id,
-                text,
-                isCompleted,
-                event_date,
-                onDeleteTodo,
-                setTodoCompletion,
-              };
-              return <TodoListItem {...props} key={`${id}_${index}`} />;
-            }
+          {todos.length < 1 ? (
+            AmptyList
+          ) : (
+            <>
+              {todos?.map(
+                (
+                  { id, text, isCompleted, event_date }: TodoListT,
+                  index: number
+                ): JSX.Element => {
+                  const props: TodoListItemT = {
+                    id,
+                    text,
+                    isCompleted,
+                    event_date,
+                    onDeleteTodo,
+                    setTodoCompletion,
+                  };
+                  return <TodoListItem {...props} key={`${id}_${index}`} />;
+                }
+              )}
+            </>
           )}
           <div ref={bottomDivRef} />
         </div>

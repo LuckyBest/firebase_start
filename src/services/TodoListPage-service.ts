@@ -10,7 +10,10 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { setError } from "../store/actions/errorMessagesActions";
-import { setTodos } from "../store/actions/todoListPageActions";
+import {
+  setTodoLoaderActivity,
+  setTodos,
+} from "../store/actions/todoListPageActions";
 import { TodoListT } from "../store/reducers/TodoListPageReducer";
 import { firebase, firebaseDatabase, firestoreDb } from "../utils/firebase";
 import { uuid } from "../utils/uuid";
@@ -22,6 +25,7 @@ export class TodoListService {
 
   public loadTodoList(): void {
     let todoList: Array<TodoListT | any> = [];
+    this.dispatch(setTodoLoaderActivity(true));
 
     this.firebaseDB = this.db.onSnapshot((collection) => {
       collection.forEach((document) => {
@@ -29,12 +33,13 @@ export class TodoListService {
       });
       if (todoList.length > 0) {
         this.dispatch(setTodos(todoList));
-
         todoList = [];
       } else {
         this.dispatch(setError("There is not any todos..."));
         this.dispatch(setTodos(todoList));
       }
+
+      this.dispatch(setTodoLoaderActivity(false));
     });
   }
 

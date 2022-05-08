@@ -6,3 +6,8 @@ export const setTodos = (data: Array<TodoListT>): ReducerActionT => ({
   type: TODO_LIST_PAGE_ACTION_TYPES.SET_TODOS,
   payload: data,
 });
+
+export const setTodoLoaderActivity = (data: boolean): ReducerActionT=> ({
+  type: TODO_LIST_PAGE_ACTION_TYPES.SET_LOADER_ACTIVITY,
+  payload: data,
+});
