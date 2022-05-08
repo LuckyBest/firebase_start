@@ -28,9 +28,9 @@ export const TodoListItem: FC<TodoListItemT> = ({ ...props }): JSX.Element => {
   //   setTodoCompletion(id, text, isTodoCompleted, event_date);
   // }, [isCompleted]);
 
-  // const setCompletion = (): void => {
-  //   setIsTodoCompleted((prevState: boolean): boolean => !prevState);
-  // };
+  const setCompletion = (): void => {
+    setIsTodoCompleted((prevState: boolean): boolean => !prevState);
+  };
 
   return (
     <div className={s.container}>
@@ -39,13 +39,7 @@ export const TodoListItem: FC<TodoListItemT> = ({ ...props }): JSX.Element => {
           type="checkbox"
           id={s.checked}
           defaultChecked={isTodoCompleted}
-          onClick={setTodoCompletion(
-            id,
-            text,
-            isTodoCompleted,
-            event_date,
-            setIsTodoCompleted
-          )}
+          onClick={setCompletion}
         />
         <label htmlFor={s.checked} />
       </div>
