@@ -35,13 +35,13 @@ export const TodoListItem: FC<TodoListItemT> = ({ ...props }): JSX.Element => {
   return (
     <div className={s.container}>
       <div className={s.container_checkbox}>
-        <input
+        {/* <input
           type="checkbox"
           id={s.checked}
           defaultChecked={isTodoCompleted}
           onClick={setCompletion}
         />
-        <label htmlFor={s.checked} />
+        <label htmlFor={s.checked} /> */}
       </div>
       <div className={s.container_text}>
         <p>{text}</p>
